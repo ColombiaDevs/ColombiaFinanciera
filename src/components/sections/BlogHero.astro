@@ -1,0 +1,27 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const { title = "Artículos", subtitle } = Astro.props as Props;
+---
+
+<section class="w-full py-10 md:py-12">
+  <div class="mx-auto max-w-5xl px-4">
+    <div class="grid items-center gap-4 md:grid-cols-2">
+      <h1
+        class="text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-tight"
+      >
+        <span class="text-foreground">{title}</span>
+      </h1>
+      {
+        subtitle && (
+          <p class="text-base md:text-lg leading-relaxed text-secondary md:text-right max-w-xl md:ml-auto">
+            {subtitle}
+          </p>
+        )
+      }
+    </div>
+  </div>
+</section>

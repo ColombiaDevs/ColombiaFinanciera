@@ -1,0 +1,50 @@
+/* Light theme tokens. Applied when an ancestor sets [data-theme="light"] (default) */
+[data-theme="light"] {
+  --accent: #2f5c43;
+  --accent-dark: #2f5c43;
+  --accent-rgb: 47, 92, 67;
+
+  --black: 31, 44, 68;
+  --gray: 95, 105, 122;
+  --gray-light: 214, 207, 193;
+  --gray-dark: 31, 44, 68;
+
+  --background: #f5f2eb;
+  --foreground: #1f2c44;
+  --card: #ffffff;
+  --card-foreground: #1f2c44;
+  --popover: #ffffff;
+  --popover-foreground: #1f2c44;
+  --primary: #c69539;
+  --primary-foreground: #ffffff;
+  --secondary: #2f5c43;
+  --secondary-foreground: #ffffff;
+  --muted: #eae3d6;
+  --muted-foreground: #5f697a;
+  --accent-foreground: #ffffff;
+
+  /* Semantic Color Tokens for components */
+  --color-text-primary: rgb(var(--black));
+  --color-text-secondary: rgb(var(--gray-dark));
+  --color-text-muted: rgb(var(--gray));
+  --color-bg-primary: var(--background);
+  --color-bg-secondary: #eae3d6;
+  --color-bg-tertiary: #eae3d6;
+
+  /* Borders */
+  --color-border: #d6cfc1;
+  --color-border-light: #d6cfc1;
+
+  --info: #2f5c43;
+  --info-foreground: #ffffff;
+  --success: #2f5c43;
+  --success-foreground: #ffffff;
+  --warning: #c69539;
+  --warning-foreground: #ffffff;
+  --error: #d0342f;
+  --error-foreground: #ffffff;
+
+  --border: #d6cfc1;
+  --input: #d6cfc1;
+  --outline: #c69539;
+}

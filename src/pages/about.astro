@@ -1,0 +1,48 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/sections/Header.astro";
+import Footer from "../components/sections/Footer.astro";
+---
+
+<!doctype html>
+<html lang="es" data-theme="dark" class="dark">
+  <head>
+    <BaseHead
+      title="Proyecto - ColombiaFinanciera"
+      description="Resumen corto del propósito del sitio y de la comunidad."
+    />
+  </head>
+  <body>
+    <Header />
+    <main class="mx-auto max-w-5xl px-4 py-12 md:py-14 space-y-10">
+      <section class="space-y-3 max-readable">
+        <h1 class="text-3xl md:text-4xl font-semibold text-foreground">
+          Proyecto
+        </h1>
+        <p class="text-secondary">
+          ColombiaFinanciera organiza contenido simple para ayudar a entender
+          ahorro, deuda e inversión.
+        </p>
+      </section>
+
+      <section class="space-y-4 max-readable">
+        <div class="border-t border-subtle pt-4 space-y-3">
+          <h2 class="text-xl font-medium text-foreground">Propósito</h2>
+          <p class="text-secondary">
+            La discusión principal ocurre en Reddit y el sitio recoge temas
+            útiles para orientar a quienes están empezando.
+          </p>
+        </div>
+
+        <div class="border-t border-subtle pt-4 space-y-3">
+          <h2 class="text-xl font-medium text-foreground">Enfoque</h2>
+          <p class="text-secondary">
+            El objetivo es crecer como proyecto abierto, no como portfolio ni
+            como landing de marketing.
+          </p>
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>

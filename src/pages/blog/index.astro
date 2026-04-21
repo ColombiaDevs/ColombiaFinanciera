@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/sections/Footer.astro";
+import Header from "../../components/sections/Header.astro";
+import BlogHero from "../../components/sections/BlogHero.astro";
+import BlogAllArticles from "../../components/sections/BlogAllArticles.astro";
+import BlogPagination from "../../components/ui/nav/BlogPagination.astro";
+import FeaturedPost from "../../components/ui/card/FeaturedPost.astro";
+import { calculateReadingTimeFromHtml } from "../../lib/reading";
+
+const PAGE_SIZE = 6;
+const posts = (await getCollection("blog")).sort(
+  (a, b) => +b.data.pubDate - +a.data.pubDate,
+);
+const [featured, ...rest] = posts;
+const firstPagePosts = rest.slice(0, PAGE_SIZE);
+const totalPages = Math.max(1, Math.ceil(rest.length / PAGE_SIZE));
+let featuredReading = 0;
+if (featured) {
+  const { Content } = await render(featured);
+  const html = await Astro.slots.render("default");
+  featuredReading = calculateReadingTimeFromHtml(html ?? "");
+}
+---
+
+<!doctype html>
+<html lang="es" data-theme="dark" class="dark">
+  <head>
+    <BaseHead
+      title="ColombiaFinanciera"
+      description="Artículos financieros simples para aprender y conversar en comunidad."
+    />
+    {totalPages > 1 && <link rel="next" href={`/blog/page/2/`} />}
+  </head>
+  <body>
+    <Header />
+    <BlogHero
+      title="Artículos"
+      subtitle="Contenido introductorio basado en discusiones reales de la comunidad."
+    />
+    <main
+      class="use-utility-layout mx-auto max-w-5xl px-4 py-10 md:py-12 space-y-10 md:space-y-11"
+    >
+      {
+        featured && (
+          <section class="card-surface p-5 md:p-6">
+            <FeaturedPost post={featured} readingTimeMin={featuredReading} />
+          </section>
+        )
+      }
+
+      <section class="card-surface p-5 md:p-6">
+        <BlogAllArticles posts={firstPagePosts} title="Todos los artículos" />
+      </section>
+      <BlogPagination currentPage={1} totalPages={totalPages} />
+    </main>
+    <Footer />
+  </body>
+</html>

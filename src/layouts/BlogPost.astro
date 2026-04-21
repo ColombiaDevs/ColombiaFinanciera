@@ -1,0 +1,124 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/sections/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Header from "../components/sections/Header.astro";
+import PostMeta from "../components/ui/meta/PostMeta.astro";
+import ShareButtons from "../components/ui/share/ShareButtons.astro";
+import PostNav from "../components/ui/nav/PostNav.astro";
+
+type BlogData = CollectionEntry<"blog">["data"];
+type Props = BlogData & {
+  showHeader?: boolean;
+  prevPost?: { id: string; title: string } | null;
+  nextPost?: { id: string; title: string } | null;
+  readingTimeMin?: number;
+};
+
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  showHeader = true,
+  prevPost = null,
+  nextPost = null,
+  readingTimeMin = 0,
+} = Astro.props as Props;
+---
+
+<html lang="es" data-theme="dark" class="dark">
+  <head>
+    <BaseHead title={title} description={description} image={heroImage} />
+    <meta property="og:type" content="article" />
+    <style>
+      main {
+        width: 100%;
+        max-width: calc(100% - 1.5rem);
+        margin: auto;
+        background: var(--color-bg-primary);
+      }
+      .hero-image {
+        width: 100%;
+      }
+      .hero-image img {
+        display: block;
+        margin: 0 auto;
+        border-radius: 12px;
+        box-shadow: none;
+      }
+      .prose {
+        width: 100%;
+        max-width: 66ch;
+        margin: auto;
+        padding: 0.5rem 0;
+        color: var(--color-text-secondary);
+        line-height: 1.65;
+      }
+      .title {
+        margin-bottom: 1.25rem;
+        padding: 1.5rem 0 1rem;
+        text-align: center;
+        line-height: 1.2;
+      }
+      .title h1 {
+        margin: 0 0 0.5em 0;
+        color: var(--color-text-primary);
+      }
+      .date {
+        margin-bottom: 0.5em;
+        color: var(--color-text-muted);
+      }
+      .last-updated-on {
+        font-style: italic;
+      }
+    </style>
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <article>
+        {
+          showHeader && (
+            <div class="hero-image">
+              {heroImage && (
+                <Image width={1020} height={510} src={heroImage} alt="" />
+              )}
+            </div>
+          )
+        }
+        <div class="prose">
+          {
+            showHeader && (
+              <div class="title">
+                <div class="date">
+                  <FormattedDate date={pubDate} />
+                  {updatedDate && (
+                    <div class="last-updated-on">
+                      Actualizado el <FormattedDate date={updatedDate} />
+                    </div>
+                  )}
+                </div>
+                <h1>{title}</h1>
+                <hr />
+              </div>
+            )
+          }
+          <ShareButtons title={title} url={Astro.url.toString()} />
+          <PostMeta
+            pubDate={pubDate}
+            readingTimeMin={readingTimeMin}
+            authorName={Astro.props.author || "Autor del sitio"}
+          />
+          <slot />
+          <PostNav prev={prevPost} next={nextPost} />
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>

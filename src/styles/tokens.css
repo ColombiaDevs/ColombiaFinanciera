@@ -1,0 +1,51 @@
+/* Base design tokens and defaults. These map to Starwind's inline theme variables. */
+:root {
+  --primary-brand: #c69539;
+  --text-base: #1f2c44;
+  --bg-base: #f5f2eb;
+  --accent: #2f5c43;
+  --danger: #d0342f;
+
+  --accent-dark: #2f5c43;
+  --accent-rgb: 47, 92, 67;
+
+  --black: 31, 44, 68;
+  --gray: 95, 105, 122;
+  --gray-light: 214, 207, 193;
+  --gray-dark: 31, 44, 68;
+
+  --shadow-sm: 0 1px 2px rgba(31, 44, 68, 0.08);
+  --shadow-md: 0 2px 4px rgba(31, 44, 68, 0.1);
+  --shadow-lg: 0 3px 8px rgba(31, 44, 68, 0.12);
+  --shadow-xl: 0 4px 12px rgba(31, 44, 68, 0.14);
+  --shadow-2xl: 0 6px 16px rgba(31, 44, 68, 0.16);
+
+  --box-shadow: 0 2px 6px rgba(31, 44, 68, 0.12);
+
+  /* Map to Starwind token variables via inline @theme in starwind.css */
+  --background: var(--bg-base);
+  --foreground: var(--text-base);
+  --card: #ffffff;
+  --card-foreground: var(--text-base);
+  --popover: #ffffff;
+  --popover-foreground: var(--text-base);
+  --primary: var(--primary-brand);
+  --primary-foreground: #ffffff;
+  --secondary: #2f5c43;
+  --secondary-foreground: #ffffff;
+  --muted: #eae3d6;
+  --muted-foreground: #5f697a;
+  --accent-foreground: #ffffff;
+  --info: #2f5c43;
+  --info-foreground: #ffffff;
+  --success: #2f5c43;
+  --success-foreground: #ffffff;
+  --warning: #c69539;
+  --warning-foreground: #ffffff;
+  --error: #d0342f;
+  --error-foreground: #ffffff;
+  --border: #d6cfc1;
+  --input: #d6cfc1;
+  --outline: #c69539;
+  --radius: 0.75rem;
+}

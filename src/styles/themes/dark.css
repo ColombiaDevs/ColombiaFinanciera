@@ -1,0 +1,48 @@
+/* Dark theme tokens. Applied when an ancestor sets [data-theme="dark"] or .dark */
+[data-theme="dark"],
+.dark {
+  --accent: #c69539;
+  --accent-dark: #ad7d2d;
+  --accent-rgb: 198, 149, 57;
+
+  --black: 248, 250, 252;
+  --gray: 148, 163, 184;
+  --gray-light: 51, 65, 85;
+  --gray-dark: 203, 213, 225;
+
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #111c33;
+  --card-foreground: #f8fafc;
+  --popover: #111c33;
+  --popover-foreground: #f8fafc;
+  --primary: #c69539;
+  --primary-foreground: #0f172a;
+  --secondary: #1e293b;
+  --secondary-foreground: #f8fafc;
+  --muted: #17233d;
+  --muted-foreground: #94a3b8;
+  --accent-foreground: #0f172a;
+
+  --color-text-primary: rgb(var(--black));
+  --color-text-secondary: rgb(var(--gray-dark));
+  --color-text-muted: rgb(var(--gray));
+  --color-bg-primary: var(--background);
+  --color-bg-secondary: #152038;
+  --color-bg-tertiary: #1b2944;
+  --color-border: #263449;
+  --color-border-light: #31415a;
+
+  --info: #38bdf8;
+  --info-foreground: #082f49;
+  --success: #22c55e;
+  --success-foreground: #052e16;
+  --warning: #c69539;
+  --warning-foreground: #0f172a;
+  --error: #ef4444;
+  --error-foreground: #ffffff;
+
+  --border: #263449;
+  --input: #263449;
+  --outline: #c69539;
+}

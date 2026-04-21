@@ -1,0 +1,107 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+---
+
+<header class="bg-background text-foreground border-b sw-header">
+  <nav class="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a
+        class="no-underline hover:opacity-90 flex items-center gap-2"
+        href="/"
+        aria-label="Home"
+      >
+        <img
+          src="/favicon.png?v=1"
+          alt=""
+          aria-hidden="true"
+          width="36"
+          height="36"
+        />
+      </a>
+      <div class="internal-links hidden md:flex items-center gap-1 ml-1">
+        <HeaderLink href="/" class="px-2 py-2 text-secondary no-underline"
+          >Inicio</HeaderLink
+        >
+        <HeaderLink href="/blog" class="px-2 py-2 text-secondary no-underline"
+          >Artículos</HeaderLink
+        >
+        <HeaderLink href="/tools" class="px-2 py-2 text-secondary no-underline"
+          >Tools</HeaderLink
+        >
+        <a
+          href="https://reddit.com/r/colombiafinanciera"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-2 py-2 text-secondary no-underline">Reddit</a
+        >
+        <HeaderLink
+          href="/contribuidores"
+          class="px-2 py-2 text-secondary no-underline"
+          >Contribuidores</HeaderLink
+        >
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        aria-label="Open menu"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        data-menu-btn
+        class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-secondary hover-text-accent"
+      >
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"
+          ><path
+            fill="currentColor"
+            d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"></path></svg
+        >
+      </button>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="md:hidden hidden border-t">
+    <div class="mx-auto max-w-6xl px-4 py-3 flex flex-col gap-2">
+      <div class="flex flex-col">
+        <HeaderLink href="/" class="px-2 py-2">Inicio</HeaderLink>
+        <HeaderLink href="/blog" class="px-2 py-2">Artículos</HeaderLink>
+        <HeaderLink href="/tools" class="px-2 py-2">Tools</HeaderLink>
+        <a
+          href="https://reddit.com/r/colombiafinanciera"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-2 py-2">Reddit</a
+        >
+        <HeaderLink href="/contribuidores" class="px-2 py-2"
+          >Contribuidores</HeaderLink
+        >
+      </div>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const btn = document.querySelector("[data-menu-btn]");
+  const panel = document.getElementById("mobile-menu");
+  function toggleMenu() {
+    if (!panel || !btn) return;
+    const isOpen = !panel.classList.contains("hidden");
+    if (isOpen) {
+      panel.classList.add("hidden");
+      btn.setAttribute("aria-expanded", "false");
+    } else {
+      panel.classList.remove("hidden");
+      btn.setAttribute("aria-expanded", "true");
+    }
+  }
+  btn?.addEventListener("click", toggleMenu);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (!panel?.classList.contains("hidden")) toggleMenu();
+    }
+  });
+  document.addEventListener("click", (e) => {
+    if (!panel || !btn) return;
+    const target = e.target;
+    const clickedInside = panel.contains(target) || btn.contains(target);
+    if (!clickedInside && !panel.classList.contains("hidden")) toggleMenu();
+  });
+</script>
