@@ -1,12 +1,12 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Footer from "../components/sections/Footer.astro";
-import Header from "../components/sections/Header.astro";
-import HeroSection from "../components/sections/HeroSection.astro";
-import FormattedDate from "../components/FormattedDate.astro";
-import { getCollection } from "astro:content";
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/sections/Footer.astro';
+import Header from '../components/sections/Header.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { getCollection } from 'astro:content';
 
-const recentPosts = (await getCollection("blog"))
+const recentPosts = (await getCollection('blog'))
   .sort((a, b) => +b.data.pubDate - +a.data.pubDate)
   .slice(0, 4);
 ---
@@ -23,40 +23,36 @@ const recentPosts = (await getCollection("blog"))
     <Header />
     <main>
       <HeroSection
-        title="No es tan claro qué hacer con tu dinero en Colombia."
-        subtitle="Artículos introductorios basados en discusiones reales de la comunidad."
+        title="No siempre es claro qué hacer con tu dinero en Colombia."
+        subtitle="Este es un punto de partida. Para contexto y experiencias reales, la discusión ocurre en la comunidad."
         showCTA
         primaryCTA={{
-          text: "Ver discusiones reales",
-          href: "https://reddit.com/r/colombiafinanciera",
+          text: 'Ver discusiones en Reddit',
+          href: 'https://reddit.com/r/colombiafinanciera',
         }}
         decisionPrompt="¿Qué estás intentando hacer?"
         decisionOptions={[
-          { text: "↑ Aumentar ahorro", href: "/blog/tag/ahorro/" },
-          { text: "↓ Reducir deuda", href: "/blog/tag/deuda/" },
-          { text: "→ Empezar a invertir", href: "/blog/tag/inversion/" },
+          { text: '↑ Aumentar ahorro', href: '/blog/tag/ahorro/' },
+          { text: '↓ Reducir deuda', href: '/blog/tag/deuda/' },
+          { text: '→ Empezar a invertir', href: '/blog/tag/inversion/' },
         ]}
       />
 
       <section class="py-8 md:py-10">
-        <div
-          class="mx-auto max-w-5xl px-4 space-y-5 text-left card-surface p-5 md:p-6"
-        >
-          <h2 class="text-2xl md:text-3xl font-semibold text-foreground">
-            Artículos recientes
-          </h2>
+        <div class="card-surface mx-auto max-w-5xl space-y-5 p-5 px-4 text-left md:p-6">
+          <h2 class="text-foreground text-2xl font-semibold md:text-3xl">Artículos recientes</h2>
           <div class="space-y-4">
             {
               recentPosts.map((post) => (
-                <article class="border-t border-subtle pt-4 first:border-t-0 first:pt-0">
-                  <a href={`/blog/${post.id}/`} class="no-underline group">
-                    <h3 class="text-lg md:text-xl font-medium text-primary hover-text-accent">
+                <article class="border-subtle border-t pt-4 first:border-t-0 first:pt-0">
+                  <a href={`/blog/${post.id}/`} class="group no-underline">
+                    <h3 class="text-primary hover-text-accent text-lg font-medium md:text-xl">
                       {post.data.title}
                     </h3>
-                    <p class="mt-1 max-copy-narrow text-secondary leading-relaxed">
+                    <p class="max-copy-narrow text-secondary mt-1 leading-relaxed">
                       {post.data.description}
                     </p>
-                    <div class="mt-2 text-sm text-muted">
+                    <div class="text-muted mt-2 text-sm">
                       <FormattedDate date={post.data.pubDate} />
                     </div>
                   </a>
@@ -69,27 +65,21 @@ const recentPosts = (await getCollection("blog"))
 
       <section class="py-6 md:py-8">
         <div
-          class="mx-auto max-w-5xl px-4 space-y-2 text-center md:text-left card-surface p-5 md:p-6 md:max-panel"
+          class="card-surface md:max-panel mx-auto max-w-5xl space-y-2 p-5 px-4 text-center md:p-6 md:text-left"
         >
-          <h2 class="text-xl md:text-2xl font-medium text-accent">
-            Herramientas
-          </h2>
-          <p
-            class="text-sm md:text-base text-secondary max-compact md:mx-0 mx-auto"
-          >
-            Herramientas en desarrollo.
+          <h2 class="text-accent text-xl font-medium md:text-2xl">Herramientas</h2>
+          <p class="text-secondary max-compact mx-auto text-sm md:mx-0 md:text-base">
+            Herramientas simples para explorar decisiones financieras. Sin registro.
           </p>
         </div>
       </section>
 
       <section class="py-6 md:py-8">
         <div
-          class="mx-auto max-w-5xl px-4 space-y-2 text-left md:text-right md:ml-auto card-surface p-5 md:p-6 md:max-panel"
+          class="card-surface md:max-panel mx-auto max-w-5xl space-y-2 p-5 px-4 text-left md:ml-auto md:p-6 md:text-right"
         >
-          <h2 class="text-xl md:text-2xl font-medium text-foreground">
-            Contribuidores
-          </h2>
-          <p class="text-sm md:text-base text-secondary max-compact md:ml-auto">
+          <h2 class="text-foreground text-xl font-medium md:text-2xl">Contribuidores</h2>
+          <p class="text-secondary max-compact text-sm md:ml-auto md:text-base">
             Proyecto abierto. Contribuciones bienvenidas.
           </p>
           <a
@@ -97,6 +87,20 @@ const recentPosts = (await getCollection("blog"))
             class="sw-btn-sm inline-flex w-fit items-center gap-2 text-sm md:ml-auto"
             >Ver cómo participar</a
           >
+        </div>
+      </section>
+
+      <section class="py-4 md:py-6">
+        <div class="mx-auto max-w-5xl px-4 text-center">
+          <p class="text-secondary text-sm md:text-base">
+            Este proyecto es abierto. Puedes ver el código o contribuir en GitHub.
+            <a
+              href="https://github.com/ColombiaDevs/ColombiaFinanciera"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="interactive-link ml-1">Ver repositorio</a
+            >
+          </p>
         </div>
       </section>
     </main>

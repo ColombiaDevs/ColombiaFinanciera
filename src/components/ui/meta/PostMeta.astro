@@ -1,34 +1,42 @@
 ---
-import { author } from "../../../data/author";
-import FormattedDate from "../../FormattedDate.astro";
-import { slugifyTag as slugify } from "../../../lib/slug";
+import { getAuthor } from '../../../data/author';
+import FormattedDate from '../../FormattedDate.astro';
+import { slugifyTag as slugify } from '../../../lib/slug';
 
 interface Props {
   pubDate: Date;
   readingTimeMin: number;
-  authorName?: string;
+  authorId?: string;
+  source?: {
+    subreddit: string;
+    threads: string[];
+    originalAuthor?: string;
+  };
 }
-const { pubDate, readingTimeMin, authorName } = Astro.props as Props;
+const { pubDate, readingTimeMin, authorId, source } = Astro.props as Props;
+const author = getAuthor(authorId ?? '');
 ---
 
 <div class="sw-post-meta flex items-start justify-between gap-4 py-2">
   <div class="flex items-start gap-3">
-    <div class="w-12 h-12 rounded-full overflow-hidden border border-subtle">
+    <div class="border-subtle h-12 w-12 overflow-hidden rounded-full border">
       <img
-        src={author.avatar.src}
-        alt={author.name}
+        src={author?.avatar || '/images/avatar.png'}
+        alt={author?.name || 'Autor'}
         width="48"
         height="48"
-        class="w-full h-full object-cover"
+        loading="lazy"
+        class="h-full w-full object-cover"
       />
     </div>
     <div class="flex flex-col">
-      <a
-        href={`/blog/author/${slugify(authorName || author.name)}/`}
-        class="interactive-link text-sm font-semibold"
-        >{authorName || author.name}</a
-      >
-      <div class="flex items-center gap-3 text-xs text-muted">
+      <p class="text-primary text-sm font-semibold">
+        Autor:
+        <a href={`/blog/author/${slugify(author?.name || 'Autor')}/`} class="interactive-link"
+          >{author?.name || 'Autor'}</a
+        >
+      </p>
+      <div class="text-muted flex items-center gap-3 text-xs">
         <div class="flex items-center gap-1">
           <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"
             ><path
@@ -48,6 +56,14 @@ const { pubDate, readingTimeMin, authorName } = Astro.props as Props;
           <span>{readingTimeMin} min lectura</span>
         </div>
       </div>
+      {
+        source && (
+          <p class="text-muted mt-1 text-xs">
+            Basado en discusiones de {source.subreddit}
+            {source.originalAuthor && ` · Idea original: ${source.originalAuthor}`}
+          </p>
+        )
+      }
     </div>
   </div>
 </div>

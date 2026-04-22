@@ -2,6 +2,16 @@ import { getCollection } from 'astro:content';
 import rss from '@astrojs/rss';
 import { slugifyCategory } from '../../../../src/data/categories';
 
+function mapToRSSItem(post) {
+  const slug = post.slug ?? post.id;
+  return {
+    title: post.data.title,
+    description: post.data.description,
+    pubDate: post.data.pubDate,
+    link: `/blog/${slug}/`,
+  };
+}
+
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   const categories = [...new Set(posts.map((p) => p.data.category).filter(Boolean))];
@@ -15,10 +25,7 @@ export async function GET(context) {
     title: `Category: ${category}`,
     description: `Latest posts in ${category}`,
     site: context.site,
-    items: posts.map((post) => ({
-      ...post.data,
-      link: `/blog/${post.id}/`,
-    })),
+    items: posts.map(mapToRSSItem),
   });
 }
 

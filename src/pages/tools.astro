@@ -1,7 +1,28 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/sections/Header.astro";
-import Footer from "../components/sections/Footer.astro";
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/sections/Header.astro';
+import Footer from '../components/sections/Footer.astro';
+
+const tools = [
+  {
+    name: 'Calculadora CDT',
+    description: 'Estima rendimientos básicos en Colombia.',
+    href: '#',
+    upcoming: true,
+  },
+  {
+    name: 'Simulador de crédito',
+    description: 'Calcula cuotas aproximadas según monto y tasa.',
+    href: '#',
+    upcoming: true,
+  },
+  {
+    name: 'Interés compuesto',
+    description: 'Visualiza crecimiento en el tiempo.',
+    href: '#',
+    upcoming: true,
+  },
+];
 ---
 
 <!doctype html>
@@ -14,28 +35,51 @@ import Footer from "../components/sections/Footer.astro";
   </head>
   <body>
     <Header />
-    <main class="mx-auto max-w-5xl px-4 py-12 md:py-14 space-y-8">
-      <section class="space-y-2 max-readable card-surface p-5 md:p-6">
-        <h1 class="text-3xl md:text-4xl font-semibold text-accent">
-          Herramientas
-        </h1>
-        <p class="text-secondary">Herramientas en desarrollo.</p>
+    <main class="mx-auto max-w-5xl space-y-8 px-4 py-12 md:py-14">
+      <section class="max-readable card-surface space-y-2 p-5 md:p-6">
+        <h1 class="text-accent text-3xl font-semibold md:text-4xl">Herramientas</h1>
+        <p class="text-secondary">
+          Utilidades simples para explorar decisiones financieras. Sin registro.
+        </p>
       </section>
 
-      <section class="space-y-3 max-readable card-surface p-5 md:p-6">
-        <p class="text-sm md:text-base text-secondary">
-          La idea es sumar piezas simples, útiles y fáciles de entender para
-          apoyar decisiones financieras.
-        </p>
-        <ul class="space-y-2 text-secondary">
-          <li class="border-b border-subtle py-2">
-            Calculadora de ahorro mensual
-          </li>
-          <li class="border-b border-subtle py-2">
-            Mapa de deuda y prioridades
-          </li>
-          <li class="py-2">Guía inicial para empezar a invertir</li>
+      <section class="max-readable card-surface space-y-3 p-5 md:p-6">
+        <ul class="space-y-5">
+          {
+            tools.map((tool) => (
+              <li class="border-subtle border-b pb-4 last:border-b-0 last:pb-0">
+                <a
+                  href={tool.href}
+                  aria-disabled={tool.upcoming ? 'true' : 'false'}
+                  onclick={tool.upcoming ? 'return false;' : undefined}
+                  class="block space-y-1 py-1 no-underline"
+                >
+                  <p class="text-primary text-base font-medium">
+                    {tool.name}
+                    {tool.upcoming && <span class="text-muted font-normal"> (próximamente)</span>}
+                  </p>
+                  <p class="text-secondary text-sm md:text-base">{tool.description}</p>
+                  <span class="interactive-link text-sm">Ver herramienta</span>
+                </a>
+              </li>
+            ))
+          }
         </ul>
+
+        <div class="pt-2">
+          <p class="text-secondary text-sm md:text-base">
+            Estas herramientas ayudan a hacer cuentas rápidas. Para contexto y experiencias reales,
+            puedes ver la comunidad.
+          </p>
+          <a
+            href="https://reddit.com/r/colombiafinanciera"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="interactive-link text-sm"
+          >
+            Ver discusiones en Reddit
+          </a>
+        </div>
       </section>
     </main>
     <Footer />

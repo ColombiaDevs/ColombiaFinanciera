@@ -1,5 +1,5 @@
 ---
-import Button from "../ui/button/Button.astro";
+import Button from '../ui/button/Button.astro';
 interface Cta {
   text: string;
   href: string;
@@ -26,21 +26,19 @@ const {
 } = Astro.props as Props;
 ---
 
-<section class="w-full py-10 md:py-12">
-  <div class="mx-auto max-readable px-4 text-center">
-    <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-foreground">
+<section class="w-full py-8 md:py-10">
+  <div class="max-readable mx-auto px-4 text-center">
+    <h1 class="text-foreground text-5xl font-bold tracking-tight md:text-7xl">
       <span class="text-foreground">{title}</span>
     </h1>
     {
       subtitle && (
-        <p class="mt-4 text-base md:text-xl text-secondary max-copy mx-auto">
-          {subtitle}
-        </p>
+        <p class="text-secondary max-copy mx-auto mt-4 text-base md:text-xl">{subtitle}</p>
       )
     }
     {
       showCTA && (primaryCTA || secondaryCTA) && (
-        <div class="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <div class="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
           {primaryCTA && (
             <Button href={primaryCTA.href} variant="primary" size="lg">
               {primaryCTA.text}
@@ -56,15 +54,14 @@ const {
     }
     {
       decisionPrompt && decisionOptions.length > 0 && (
-        <div class="mt-8 mx-auto max-decision text-left border-t border-subtle pt-5">
-          <p class="text-sm md:text-base font-medium text-primary">
-            {decisionPrompt}
-          </p>
+        <div class="max-decision border-subtle-soft mx-auto mt-8 border-t pt-5 text-left">
+          <p class="text-primary text-sm font-medium md:text-base">{decisionPrompt}</p>
+          <p class="text-secondary mt-1 text-sm">Puedes empezar por aquí:</p>
           <div class="mt-3 flex flex-col">
             {decisionOptions.map((option) => (
               <a
                 href={option.href}
-                class="group decision-link flex items-center justify-between gap-4 border-t border-subtle py-3 font-medium text-secondary no-underline hover-text-accent"
+                class="group decision-link border-subtle-soft text-secondary hover-text-accent flex items-center justify-between gap-4 border-t py-3 font-medium no-underline"
               >
                 <span>{option.text}</span>
                 <span

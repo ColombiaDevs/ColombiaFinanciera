@@ -2,6 +2,16 @@ import { getCollection } from 'astro:content';
 import rss from '@astrojs/rss';
 import { slugifyTag } from '../../../../src/lib/slug';
 
+function mapToRSSItem(post) {
+  const slug = post.slug ?? post.id;
+  return {
+    title: post.data.title,
+    description: post.data.description,
+    pubDate: post.data.pubDate,
+    link: `/blog/${slug}/`,
+  };
+}
+
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   const tags = [...new Set(posts.flatMap((p) => p.data.tags || []))];
@@ -17,10 +27,7 @@ export async function GET(context) {
     title: `Tag: ${tag}`,
     description: `Latest posts tagged ${tag}`,
     site: context.site,
-    items: posts.map((post) => ({
-      ...post.data,
-      link: `/blog/${post.id}/`,
-    })),
+    items: posts.map(mapToRSSItem),
   });
 }
 

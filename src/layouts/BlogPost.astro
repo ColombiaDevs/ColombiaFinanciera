@@ -1,15 +1,17 @@
 ---
-import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
-import BaseHead from "../components/BaseHead.astro";
-import Footer from "../components/sections/Footer.astro";
-import FormattedDate from "../components/FormattedDate.astro";
-import Header from "../components/sections/Header.astro";
-import PostMeta from "../components/ui/meta/PostMeta.astro";
-import ShareButtons from "../components/ui/share/ShareButtons.astro";
-import PostNav from "../components/ui/nav/PostNav.astro";
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/sections/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/sections/Header.astro';
+import PostMeta from '../components/ui/meta/PostMeta.astro';
+import ShareButtons from '../components/ui/share/ShareButtons.astro';
+import PostNav from '../components/ui/nav/PostNav.astro';
+import fallbackImage from '../assets/images/blog-placeholder.png';
+import { getAuthor } from '../data/author';
 
-type BlogData = CollectionEntry<"blog">["data"];
+type BlogData = CollectionEntry<'blog'>['data'];
 type Props = BlogData & {
   showHeader?: boolean;
   prevPost?: { id: string; title: string } | null;
@@ -20,14 +22,19 @@ type Props = BlogData & {
 const {
   title,
   description,
+  author,
   pubDate,
   updatedDate,
   heroImage,
+  source,
   showHeader = true,
   prevPost = null,
   nextPost = null,
   readingTimeMin = 0,
 } = Astro.props as Props;
+
+const post = { data: Astro.props as BlogData };
+const resolvedAuthor = getAuthor(post.data.author ?? author ?? '');
 ---
 
 <html lang="es" data-theme="dark" class="dark">
@@ -85,9 +92,7 @@ const {
         {
           showHeader && (
             <div class="hero-image">
-              {heroImage && (
-                <Image width={1020} height={510} src={heroImage} alt="" />
-              )}
+              <Image width={1020} height={510} src={heroImage ?? fallbackImage} alt="" />
             </div>
           )
         }
@@ -112,7 +117,8 @@ const {
           <PostMeta
             pubDate={pubDate}
             readingTimeMin={readingTimeMin}
-            authorName={Astro.props.author || "Autor del sitio"}
+            authorId={resolvedAuthor.name}
+            source={source}
           />
           <slot />
           <PostNav prev={prevPost} next={nextPost} />

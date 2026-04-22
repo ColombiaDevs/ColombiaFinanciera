@@ -1,33 +1,32 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import FormattedDate from "../../FormattedDate.astro";
-import { slugifyTag as slugify } from "../../../lib/slug";
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from '../../FormattedDate.astro';
+import { slugifyTag as slugify } from '../../../lib/slug';
 
 interface Props {
-  post: CollectionEntry<"blog">;
+  post: CollectionEntry<'blog'>;
   readingTimeMin?: number;
 }
 const { post, readingTimeMin = 0 } = Astro.props as Props;
 ---
 
 <div class="relative space-y-4 py-1">
-  <p class="text-xs uppercase tracking-wide text-muted">Artículo destacado</p>
-  <h3 class="text-2xl md:text-3xl font-semibold text-primary leading-tight">
+  <p class="text-muted text-xs tracking-wide uppercase">Artículo destacado</p>
+  <h3 class="text-primary text-2xl leading-tight font-semibold md:text-3xl">
     {post.data.title}
   </h3>
   {
     post.data.description && (
-      <p class="text-secondary leading-relaxed max-copy-narrow">
-        {post.data.description}
-      </p>
+      <p class="text-secondary max-copy-narrow leading-relaxed">{post.data.description}</p>
     )
   }
-  <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
+  <div class="text-muted flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
     <FormattedDate date={post.data.pubDate} />
     <span>•</span>
+    <span>Autor:</span>
     <a
-      href={`/blog/author/${slugify(post.data.author || "Autor del sitio")}/`}
-      class="interactive-link">{post.data.author || "Autor del sitio"}</a
+      href={`/blog/author/${slugify(post.data.author || 'ColombiaFinanciera')}/`}
+      class="interactive-link">{post.data.author || 'ColombiaFinanciera'}</a
     >
     {
       readingTimeMin > 0 && (
@@ -38,11 +37,6 @@ const { post, readingTimeMin = 0 } = Astro.props as Props;
       )
     }
   </div>
-  <a href={`/blog/${post.id}/`} class="interactive-link text-sm font-medium"
-    >Leer artículo</a
-  >
-  <a
-    href={`/blog/${post.id}/`}
-    class="stretched-link"
-    aria-label={post.data.title}></a>
+  <a href={`/blog/${post.id}/`} class="interactive-link text-sm font-medium">Leer artículo</a>
+  <a href={`/blog/${post.id}/`} class="stretched-link" aria-label={post.data.title}></a>
 </div>
