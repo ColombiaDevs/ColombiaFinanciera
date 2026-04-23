@@ -1,7 +1,9 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/sections/Header.astro";
-import Footer from "../components/sections/Footer.astro";
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/sections/Header.astro';
+import Footer from '../components/sections/Footer.astro';
+import Button from '../components/ui/button/Button.astro';
+import { contributors } from '../data/contributors';
 ---
 
 <!doctype html>
@@ -14,28 +16,53 @@ import Footer from "../components/sections/Footer.astro";
   </head>
   <body>
     <Header />
-    <main class="mx-auto max-w-5xl px-4 py-12 md:py-14 space-y-8">
-      <section class="space-y-2 max-readable card-surface p-5 md:p-6">
-        <h1 class="text-3xl md:text-4xl font-semibold text-accent">
-          Contribuidores
-        </h1>
+    <main class="mx-auto max-w-5xl space-y-8 px-4 py-12 md:py-14">
+      <section class="max-readable card-surface space-y-2 p-5 md:p-6">
+        <h1 class="text-accent text-3xl font-semibold md:text-4xl">Contribuidores</h1>
         <p class="text-secondary">Proyecto mantenido por la comunidad.</p>
       </section>
 
-      <section class="space-y-3 max-readable card-surface p-5 md:p-6">
-        <p class="text-sm md:text-base text-secondary">
+      <section class="max-readable card-surface space-y-3 p-5 md:p-6">
+        <p class="text-secondary text-sm md:text-base">
           Proyecto abierto. Contribuciones bienvenidas.
         </p>
-        <p class="text-sm md:text-base text-secondary">
-          Abrir issues, proponer mejoras y enviar pull requests pequeñas es
-          suficiente para empezar.
+        <p class="text-secondary text-sm md:text-base">
+          Abrir issues, proponer mejoras y enviar pull requests pequeñas es suficiente para empezar.
         </p>
-        <a
+        <Button
           href="https://github.com/ColombiaDevs/ColombiaFinanciera"
           target="_blank"
           rel="noopener noreferrer"
-          class="sw-btn inline-flex w-fit items-center gap-2">Ver GitHub</a
+          class="inline-flex w-fit items-center gap-2"
         >
+          Ver GitHub
+        </Button>
+      </section>
+
+      <section class="max-readable card-surface space-y-4 p-5 md:p-6">
+        <h2 class="text-primary text-xl font-semibold md:text-2xl">Equipo y contribuidores</h2>
+        <ul class="space-y-3">
+          {
+            contributors.map((contributor) => (
+              <li class="border-subtle bg-surface-muted rounded-xl border p-4">
+                <p class="text-primary text-base font-medium md:text-lg">{contributor.name}</p>
+                {contributor.role && (
+                  <p class="text-secondary text-sm md:text-base">{contributor.role}</p>
+                )}
+                {contributor.github && (
+                  <a
+                    href={contributor.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="interactive-link text-sm"
+                  >
+                    Ver GitHub
+                  </a>
+                )}
+              </li>
+            ))
+          }
+        </ul>
       </section>
     </main>
     <Footer />

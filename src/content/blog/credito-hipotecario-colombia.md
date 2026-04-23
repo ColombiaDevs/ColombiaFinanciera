@@ -2,7 +2,7 @@
 title: "Después de comprar vivienda en Colombia, el crédito es la decisión que realmente importa"
 description: "La mayoría de errores no ocurren al comprar vivienda, sino en cómo se maneja el crédito hipotecario después."
 pubDate: 2026-04-21
-author: "aquel"
+author: "ColombiaFinanciera"
 category: "vivienda"
 tags: ["credito hipotecario", "vivienda", "deuda"]
 heroImage: "../../assets/images/articles/credito-hipotecario-colombia.png"

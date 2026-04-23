@@ -5,6 +5,7 @@ import Header from '../../../components/sections/Header.astro';
 import Footer from '../../../components/sections/Footer.astro';
 import PostCard from '../../../components/ui/card/PostCard.astro';
 import { slugifyTag as slugify } from '../../../lib/slug';
+import { getAuthor } from '../../../data/author';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -18,7 +19,9 @@ const { slug } = Astro.params;
 const posts = (await getCollection('blog')).filter(
   (p) => slugify(p.data.author || 'ColombiaFinanciera') === slug
 );
-const authorName = posts[0]?.data.author || 'ColombiaFinanciera';
+const authorId = posts[0]?.data.author || 'ColombiaFinanciera';
+const author = getAuthor(authorId);
+const authorName = author.name;
 ---
 
 <html lang="es" data-theme="dark" class="dark">
@@ -29,6 +32,35 @@ const authorName = posts[0]?.data.author || 'ColombiaFinanciera';
     <Header />
     <main class="mx-auto max-w-5xl space-y-6 px-4 py-12 md:py-14">
       <h1 class="text-3xl font-bold md:text-4xl">Artículos de {authorName}</h1>
+      {
+        (author.bio || author.reddit || author.github) && (
+          <section class="max-readable card-surface space-y-2 p-5 md:p-6">
+            {author.bio && <p class="text-secondary text-sm md:text-base">{author.bio}</p>}
+            <p class="text-muted flex items-center gap-3 text-xs">
+              {author.reddit && (
+                <a
+                  href={author.reddit}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="interactive-link text-xs"
+                >
+                  Reddit
+                </a>
+              )}
+              {author.github && (
+                <a
+                  href={author.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="interactive-link text-xs"
+                >
+                  GitHub
+                </a>
+              )}
+            </p>
+          </section>
+        )
+      }
       <div class="blog-grid">
         {posts.map((p) => <PostCard post={p} />)}
       </div>

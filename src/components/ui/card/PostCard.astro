@@ -2,11 +2,14 @@
 import type { CollectionEntry } from 'astro:content';
 import FormattedDate from '../../FormattedDate.astro';
 import { slugifyTag as slugify } from '../../../lib/slug';
+import { getAuthor } from '../../../data/author';
 
 interface Props {
   post: CollectionEntry<'blog'>;
 }
 const { post } = Astro.props as Props;
+const authorId = post.data.author || 'ColombiaFinanciera';
+const author = getAuthor(authorId);
 ---
 
 <article
@@ -22,10 +25,7 @@ const { post } = Astro.props as Props;
     </div>
     <span aria-hidden="true">•</span>
     <span>Autor:</span>
-    <a
-      href={`/blog/author/${slugify(post.data.author || 'ColombiaFinanciera')}/`}
-      class="interactive-link">{post.data.author || 'ColombiaFinanciera'}</a
-    >
+    <a href={`/blog/author/${slugify(authorId)}/`} class="interactive-link">{author.name}</a>
     {
       post.data.category && (
         <>

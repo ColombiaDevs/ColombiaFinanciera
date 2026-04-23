@@ -1,49 +1,49 @@
 ---
 interface Props {
-  variant?: "primary" | "secondary" | "ghost" | "outline";
-  size?: "sm" | "md" | "lg";
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
   href?: string;
-  type?: "button" | "submit" | "reset";
+  type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
+  target?: string;
+  rel?: string;
   class?: string;
 }
 
 const {
-  variant = "primary",
-  size = "md",
+  variant = 'primary',
+  size = 'md',
   href,
-  type = "button",
+  type = 'button',
   disabled = false,
   class: className,
   ...rest
 } = Astro.props as Props;
 
-const Tag = href ? "a" : "button";
+const Tag = href ? 'a' : 'button';
 
 const base =
-  "inline-flex items-center justify-center rounded-lg font-semibold starwind-transition-colors no-underline";
+  'inline-flex items-center justify-center rounded-lg font-semibold starwind-transition-colors no-underline';
 const sizes: Record<string, string> = {
-  sm: "px-3.5 py-2 text-sm",
-  md: "px-4 py-2.5 text-base",
-  lg: "px-6 py-3.5 text-lg",
+  sm: 'px-3.5 py-2 text-sm',
+  md: 'px-4 py-2.5 text-base',
+  lg: 'px-6 py-3.5 text-lg',
 };
 const variants: Record<string, string> = {
-  primary: "btn-primary",
-  secondary: "btn-secondary",
-  ghost: "btn-ghost",
-  outline: "btn-outline",
+  primary: 'btn-primary',
+  secondary: 'btn-secondary',
+  ghost: 'btn-ghost',
+  outline: 'btn-outline',
 };
 
-const classes = [base, sizes[size], variants[variant], className]
-  .filter(Boolean)
-  .join(" ");
+const classes = [base, sizes[size], variants[variant], className].filter(Boolean).join(' ');
 ---
 
 <Tag
   class={classes}
   href={href}
   type={!href ? type : undefined}
-  aria-disabled={disabled ? "true" : undefined}
+  aria-disabled={disabled ? 'true' : undefined}
   {...rest}
 >
   <slot />

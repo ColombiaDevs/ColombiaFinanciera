@@ -3,19 +3,22 @@ const DEFAULT_AVATAR = '/images/avatar.png';
 type AuthorRecord = {
   name?: string;
   avatar?: string;
-  url?: string;
+  reddit?: string;
+  github?: string;
+  bio?: string;
 };
 
-const authors: Record<string, AuthorRecord> = {
+export const authors: Record<string, AuthorRecord> = {
   ColombiaFinanciera: {
     name: 'ColombiaFinanciera',
     avatar: '/images/avatar.png',
-    url: '#',
+    reddit: 'https://www.reddit.com/r/ColombiaFinanciera/',
+    bio: 'Proyecto comunitario para aprender finanzas personales en Colombia.',
   },
-  aquel: {
-    name: 'aquel',
+  odrakcir: {
+    name: 'odrakcir',
     avatar: '/images/avatar.png',
-    url: '#',
+    reddit: 'https://www.reddit.com/user/odrakcir/',
   },
 };
 
@@ -30,7 +33,5 @@ export function getAuthor(authorId: string) {
     avatar: foundAuthor?.avatar ?? DEFAULT_AVATAR,
   };
 }
-
-export const author = getAuthor('ColombiaFinanciera');
 
 export type Author = ReturnType<typeof getAuthor>;

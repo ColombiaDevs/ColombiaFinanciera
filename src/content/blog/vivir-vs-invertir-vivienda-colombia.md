@@ -2,7 +2,7 @@
 title: "El error de mezclar vivir e invertir al comprar vivienda en Colombia"
 description: "Comprar vivienda no es una sola decisión. Mezclar vivir e invertir es una de las causas más comunes de malas decisiones."
 pubDate: 2026-04-21
-author: "aquel"
+author: "ColombiaFinanciera"
 category: "vivienda"
 tags: ["vivienda", "decision financiera", "finca raiz"]
 heroImage: "../../assets/images/articles/vivir-vs-invertir-vivienda-colombia.png"

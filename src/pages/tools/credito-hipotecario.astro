@@ -1,0 +1,46 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/sections/Header.astro';
+import Footer from '../../components/sections/Footer.astro';
+import CreditSimulator from '../../components/tools/CreditSimulator.jsx';
+---
+
+<!doctype html>
+<html lang="es" data-theme="dark" class="dark">
+  <head>
+    <BaseHead
+      title="Simulador de credito hipotecario - ColombiaFinanciera"
+      description="Simula una cuota mensual aproximada para credito hipotecario en Colombia."
+    />
+  </head>
+  <body>
+    <Header />
+    <main class="mx-auto max-w-5xl space-y-8 px-4 py-12 md:py-14">
+      <section class="max-readable card-surface space-y-2 p-5 md:p-6">
+        <h1 class="text-accent text-3xl font-semibold md:text-4xl">
+          Simulador de credito hipotecario
+        </h1>
+        <p class="text-secondary text-sm md:text-base">
+          Herramienta referencial para estimar cuota mensual segun monto, tasa y plazo.
+        </p>
+      </section>
+
+      <CreditSimulator client:load />
+
+      <section class="max-readable card-surface space-y-2 p-5 md:p-6">
+        <p class="text-secondary text-sm md:text-base">
+          Para contrastar escenarios reales, puedes revisar discusiones de la comunidad.
+        </p>
+        <a
+          href="https://reddit.com/r/colombiafinanciera"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="interactive-link text-sm"
+        >
+          Ver discusiones en Reddit
+        </a>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>

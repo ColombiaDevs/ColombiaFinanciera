@@ -15,6 +15,7 @@ interface Props {
 }
 const { pubDate, readingTimeMin, authorId, source } = Astro.props as Props;
 const author = getAuthor(authorId ?? '');
+const authorSlug = slugify(authorId || 'ColombiaFinanciera');
 ---
 
 <div class="sw-post-meta flex items-start justify-between gap-4 py-2">
@@ -32,7 +33,7 @@ const author = getAuthor(authorId ?? '');
     <div class="flex flex-col">
       <p class="text-primary text-sm font-semibold">
         Autor:
-        <a href={`/blog/author/${slugify(author?.name || 'Autor')}/`} class="interactive-link"
+        <a href={`/blog/author/${authorSlug}/`} class="interactive-link"
           >{author?.name || 'Autor'}</a
         >
       </p>
@@ -61,6 +62,32 @@ const author = getAuthor(authorId ?? '');
           <p class="text-muted mt-1 text-xs">
             Basado en discusiones de {source.subreddit}
             {source.originalAuthor && ` · Idea original: ${source.originalAuthor}`}
+          </p>
+        )
+      }
+      {
+        (author?.reddit || author?.github) && (
+          <p class="text-muted mt-1 flex items-center gap-3 text-xs">
+            {author?.reddit && (
+              <a
+                href={author.reddit}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="interactive-link text-xs"
+              >
+                Reddit
+              </a>
+            )}
+            {author?.github && (
+              <a
+                href={author.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="interactive-link text-xs"
+              >
+                GitHub
+              </a>
+            )}
           </p>
         )
       }

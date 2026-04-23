@@ -1,23 +1,23 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/sections/Header.astro';
-import Footer from '../components/sections/Footer.astro';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/sections/Header.astro';
+import Footer from '../../components/sections/Footer.astro';
 
 const tools = [
   {
+    name: 'Simulador de credito hipotecario',
+    description: 'Calcula una cuota mensual aproximada segun monto, tasa y plazo.',
+    href: '/tools/credito-hipotecario',
+    upcoming: false,
+  },
+  {
     name: 'Calculadora CDT',
-    description: 'Estima rendimientos básicos en Colombia.',
+    description: 'Estima rendimientos basicos en Colombia.',
     href: '#',
     upcoming: true,
   },
   {
-    name: 'Simulador de crédito',
-    description: 'Calcula cuotas aproximadas según monto y tasa.',
-    href: '#',
-    upcoming: true,
-  },
-  {
-    name: 'Interés compuesto',
+    name: 'Interes compuesto',
     description: 'Visualiza crecimiento en el tiempo.',
     href: '#',
     upcoming: true,
@@ -56,7 +56,7 @@ const tools = [
                 >
                   <p class="text-primary text-base font-medium">
                     {tool.name}
-                    {tool.upcoming && <span class="text-muted font-normal"> (próximamente)</span>}
+                    {tool.upcoming && <span class="text-muted font-normal"> (proximamente)</span>}
                   </p>
                   <p class="text-secondary text-sm md:text-base">{tool.description}</p>
                   <span class="interactive-link text-sm">Ver herramienta</span>
@@ -65,21 +65,6 @@ const tools = [
             ))
           }
         </ul>
-
-        <div class="pt-2">
-          <p class="text-secondary text-sm md:text-base">
-            Estas herramientas ayudan a hacer cuentas rápidas. Para contexto y experiencias reales,
-            puedes ver la comunidad.
-          </p>
-          <a
-            href="https://reddit.com/r/colombiafinanciera"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="interactive-link text-sm"
-          >
-            Ver discusiones en Reddit
-          </a>
-        </div>
       </section>
     </main>
     <Footer />

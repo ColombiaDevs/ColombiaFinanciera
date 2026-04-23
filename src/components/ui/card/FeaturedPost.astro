@@ -2,12 +2,15 @@
 import type { CollectionEntry } from 'astro:content';
 import FormattedDate from '../../FormattedDate.astro';
 import { slugifyTag as slugify } from '../../../lib/slug';
+import { getAuthor } from '../../../data/author';
 
 interface Props {
   post: CollectionEntry<'blog'>;
   readingTimeMin?: number;
 }
 const { post, readingTimeMin = 0 } = Astro.props as Props;
+const authorId = post.data.author || 'ColombiaFinanciera';
+const author = getAuthor(authorId);
 ---
 
 <div class="relative space-y-4 py-1">
@@ -24,10 +27,7 @@ const { post, readingTimeMin = 0 } = Astro.props as Props;
     <FormattedDate date={post.data.pubDate} />
     <span>•</span>
     <span>Autor:</span>
-    <a
-      href={`/blog/author/${slugify(post.data.author || 'ColombiaFinanciera')}/`}
-      class="interactive-link">{post.data.author || 'ColombiaFinanciera'}</a
-    >
+    <a href={`/blog/author/${slugify(authorId)}/`} class="interactive-link">{author.name}</a>
     {
       readingTimeMin > 0 && (
         <>

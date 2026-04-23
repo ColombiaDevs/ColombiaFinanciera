@@ -2,7 +2,7 @@
 title: "Invertir en Colombia sin entender impuestos puede cambiar completamente el resultado"
 description: "Los impuestos no son un detalle en las inversiones. Dependiendo del activo, pueden cambiar de forma importante el resultado final."
 pubDate: 2026-04-21
-author: "aquel"
+author: "odrakcir"
 category: "inversion"
 tags: ["impuestos", "inversion", "finanzas personales"]
 heroImage: "../../assets/images/articles/impuestos-inversiones-colombia.png"
