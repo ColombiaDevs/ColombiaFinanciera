@@ -61,7 +61,7 @@ Pero si la pregunta es si es un buen lugar para vivir y puedes sostenerlo en el 
 
 El problema es cuando intentas usar la segunda respuesta para justificar la primera.
 
-Decir que es buena inversión porque vas a vivir ahí, o al revés, convencerte de que es buen lugar para vivir solo porque “los números no están tan mal”.
+Decir que es buena inversión porque vas a vivir ahí, o al revés, convencerte de que es buen lugar para vivir solo porque "los números no están tan mal".
 
 Ese tipo de mezcla es la que termina generando decisiones poco claras.
 

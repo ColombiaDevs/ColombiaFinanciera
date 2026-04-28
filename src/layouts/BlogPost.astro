@@ -120,6 +120,25 @@ const authorId = post.data.author ?? 'ColombiaFinanciera';
           />
           <slot />
           <PostNav prev={prevPost} next={nextPost} />
+          <p class="text-muted mt-6 text-sm leading-relaxed">
+            Este contenido se basa en discusiones reales de la comunidad. También puedes ver
+            conversaciones abiertas en
+            <a
+              href="https://reddit.com/r/colombiafinanciera"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="interactive-link mx-1">Reddit</a
+            >
+            o seguir el canal en
+            <a
+              href="https://t.me/ColombiaFinanciera"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Ir al canal de Telegram"
+              title="Telegram"
+              class="interactive-link ml-1">Telegram</a
+            >.
+          </p>
         </div>
       </article>
     </main>
