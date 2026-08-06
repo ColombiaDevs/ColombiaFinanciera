@@ -2,21 +2,38 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
+import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/images/blog-placeholder.png';
+import SchemaOrg from './SchemaOrg.astro';
 
 interface Props {
   title: string;
   description: string;
   image?: ImageMetadata;
+  /** Open Graph object type. Articles should pass "article". */
+  type?: 'website' | 'article';
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const absoluteUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const absoluteUrl = canonicalURL.toString();
 const siteOrigin = Astro.site ?? new URL(Astro.url).origin;
 
-const { title, description, image = FallbackImage } = Astro.props;
-const imageUrl = new URL(image.src, siteOrigin).toString();
+const { title, description, image = FallbackImage, type = 'website' } = Astro.props;
+
+// Social crawlers fetch this image on every share. Serving the raw source
+// asset means shipping 1-2 MB PNGs, so emit a right-sized JPEG instead.
+const ogImage = await getImage({
+  src: image,
+  width: 1200,
+  height: 630,
+  fit: 'cover',
+  position: 'center',
+  format: 'jpeg',
+  quality: 80,
+});
+const imageUrl = new URL(ogImage.src, siteOrigin).toString();
+const logoUrl = new URL('/apple-touch-icon.png', siteOrigin).toString();
 ---
 
 <!-- Global Metadata -->
@@ -25,7 +42,6 @@ const imageUrl = new URL(image.src, siteOrigin).toString();
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1" />
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1" />
-<link rel="icon" type="image/png" href="/favicon.png?v=1" />
 <link rel="shortcut icon" href="/favicon.ico?v=1" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
@@ -56,13 +72,16 @@ const imageUrl = new URL(image.src, siteOrigin).toString();
 <meta name="description" content={description} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content={type} />
 <meta property="og:site_name" content="ColombiaFinanciera" />
 <meta property="og:locale" content="es_CO" />
 <meta property="og:url" content={absoluteUrl} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={imageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:alt" content={title} />
 
 <!-- Twitter -->
@@ -71,3 +90,7 @@ const imageUrl = new URL(image.src, siteOrigin).toString();
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={title} />
+
+<!-- Structured data -->
+<SchemaOrg logo={logoUrl} />

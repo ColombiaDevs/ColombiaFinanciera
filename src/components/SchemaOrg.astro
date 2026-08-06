@@ -1,0 +1,57 @@
+---
+/**
+ * Structured data (JSON-LD) shared by every page.
+ *
+ * Emits a linked graph so AI engines and search crawlers can resolve the
+ * publisher entity once and reference it from article-level markup via
+ * the stable `#organization` / `#website` node ids.
+ */
+interface Props {
+  /** Absolute URL of the logo/brand image. */
+  logo: string;
+}
+
+const { logo } = Astro.props;
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
+
+const graph = [
+  {
+    '@type': 'Organization',
+    '@id': `${site}/#organization`,
+    name: 'ColombiaFinanciera',
+    url: `${site}/`,
+    logo: {
+      '@type': 'ImageObject',
+      url: logo,
+    },
+    description:
+      'Proyecto comunitario y abierto para aprender finanzas personales en Colombia: ahorro, deuda, vivienda e inversión.',
+    knowsLanguage: 'es-CO',
+    areaServed: {
+      '@type': 'Country',
+      name: 'Colombia',
+    },
+    sameAs: [
+      'https://www.reddit.com/r/ColombiaFinanciera/',
+      'https://t.me/ColombiaFinanciera',
+      'https://github.com/ColombiaDevs/ColombiaFinanciera',
+    ],
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${site}/#website`,
+    url: `${site}/`,
+    name: 'ColombiaFinanciera',
+    description: 'Artículos financieros simples para aprender y conversar en comunidad.',
+    inLanguage: 'es-CO',
+    publisher: { '@id': `${site}/#organization` },
+  },
+];
+---
+
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })}
+/>

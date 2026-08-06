@@ -26,7 +26,11 @@ const authorName = author.name;
 
 <html lang="es" data-theme="dark" class="dark">
   <head>
-    <BaseHead title={`Artículos de ${authorName}`} description={`Publicaciones de ${authorName}`} />
+    <BaseHead
+      title={`Artículos de ${authorName} - ColombiaFinanciera`}
+      description={author.bio ??
+        `Artículos publicados por ${authorName} en ColombiaFinanciera sobre finanzas personales en Colombia.`}
+    />
   </head>
   <body>
     <Header />

@@ -18,13 +18,20 @@ function toTitleFromSlug(slug: string): string {
 
 // Customize category SEO here
 const categoryMetaBySlug: Record<string, Partial<CategoryMeta>> = {
-  'growth': {
-    title: 'Growth',
-    description: 'Frameworks and tactics for sustainable product growth.',
+  vivienda: {
+    title: 'Vivienda',
+    description:
+      'Comprar, arrendar y financiar vivienda en Colombia: crédito hipotecario, costos reales y cuándo conviene cada opción.',
   },
-  'engineering': {
-    title: 'Engineering',
-    description: 'Notes on building reliable, fast web products.',
+  inversion: {
+    title: 'Inversión',
+    description:
+      'Cómo invertir en Colombia con criterio: tipos de activo, impuestos y errores frecuentes al empezar.',
+  },
+  'finanzas-personales': {
+    title: 'Finanzas personales',
+    description:
+      'Ahorro, deuda y decisiones de gasto en el día a día colombiano, explicadas de forma simple.',
   },
 };
 
@@ -35,9 +42,12 @@ export function getCategoryMeta(slugOrName: string): CategoryMeta {
   return {
     slug,
     title: custom.title ?? fallbackTitle,
-    description: custom.description ?? `${fallbackTitle} articles and notes.`,
+    description:
+      custom.description ??
+      `Artículos de ColombiaFinanciera sobre ${fallbackTitle.toLowerCase()} en el contexto colombiano.`,
   };
 }
 
-export function slugifyCategory(name: string): string { return toSlug(name); }
-
+export function slugifyCategory(name: string): string {
+  return toSlug(name);
+}

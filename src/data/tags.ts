@@ -13,10 +13,6 @@ function toTitleCaseFromSlug(slug: string): string {
 
 // Customize specific tags here as needed
 const tagMetaBySlug: Record<string, Partial<TagMeta>> = {
-  astro: {
-    title: 'Astro',
-    description: 'Posts about building fast, content-focused sites with Astro.',
-  },
   ahorro: {
     title: 'Ahorro',
     description: 'Artículos sobre cómo guardar dinero y construir un colchón financiero.',
@@ -37,8 +33,8 @@ export function getTagMeta(slug: string): TagMeta {
   return {
     slug,
     title: custom.title ?? `#${baseTitle}`,
-    description: custom.description ?? `Articles tagged ${baseTitle}.`,
+    description:
+      custom.description ??
+      `Artículos de ColombiaFinanciera sobre ${baseTitle.toLowerCase()} y su impacto en las finanzas personales en Colombia.`,
   } as TagMeta;
 }
-
-

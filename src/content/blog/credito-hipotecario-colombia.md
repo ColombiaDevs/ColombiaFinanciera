@@ -5,7 +5,7 @@ pubDate: 2026-04-21
 author: "ColombiaFinanciera"
 category: "vivienda"
 tags: ["credito hipotecario", "vivienda", "deuda"]
-heroImage: "../../assets/images/articles/credito-hipotecario-colombia.png"
+heroImage: "../../assets/images/articles/credito-hipotecario-colombia.webp"
 source:
   subreddit: "r/ColombiaFinanciera"
   threads:

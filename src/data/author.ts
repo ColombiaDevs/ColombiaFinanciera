@@ -1,4 +1,4 @@
-const DEFAULT_AVATAR = '/images/avatar.png';
+const DEFAULT_AVATAR = '/images/avatar-96.png';
 
 type AuthorRecord = {
   name?: string;
@@ -11,13 +11,13 @@ type AuthorRecord = {
 export const authors: Record<string, AuthorRecord> = {
   ColombiaFinanciera: {
     name: 'ColombiaFinanciera',
-    avatar: '/images/avatar.png',
+    avatar: '/images/avatar-96.png',
     reddit: 'https://www.reddit.com/r/ColombiaFinanciera/',
     bio: 'Proyecto comunitario para aprender finanzas personales en Colombia.',
   },
   odrakcir: {
     name: 'odrakcir',
-    avatar: '/images/avatar.png',
+    avatar: '/images/avatar-96.png',
     reddit: 'https://www.reddit.com/user/odrakcir/',
   },
 };

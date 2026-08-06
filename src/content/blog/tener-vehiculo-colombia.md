@@ -6,7 +6,7 @@ author: "ColombiaFinanciera"
 category: "finanzas personales"
 tags: ["vehiculo", "carro", "gastos"]
 
-heroImage: "../../assets/images/articles/tener-vehiculo-colombia.png"
+heroImage: "../../assets/images/articles/tener-vehiculo-colombia.webp"
 
 source:
   subreddit: "r/ColombiaFinanciera"

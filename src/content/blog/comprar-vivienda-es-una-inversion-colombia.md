@@ -5,7 +5,7 @@ pubDate: 2026-04-21
 author: "ColombiaFinanciera"
 category: "vivienda"
 tags: ["vivienda", "inversion", "finca raiz"]
-heroImage: "../../assets/images/articles/comprar-vivienda-es-una-inversion-colombia.png"
+heroImage: "../../assets/images/articles/comprar-vivienda-es-una-inversion-colombia.webp"
 source:
   subreddit: "r/ColombiaFinanciera"
   threads:

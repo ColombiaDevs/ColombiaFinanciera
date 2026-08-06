@@ -1,7 +1,62 @@
+# ColombiaFinanciera — https://colombiafinanciera.com.co
+# Contenido abierto: se permite el acceso a buscadores tradicionales y a
+# rastreadores de motores generativos (GEO).
+
 User-agent: *
 Allow: /
 
-# Disallow dev/preview endpoints (none by default)
+# --- Rastreadores de IA / motores generativos (acceso explícito) ---
+# Entrenamiento e indexación de respuestas. Se permiten de forma explícita
+# para maximizar la citabilidad del sitio en respuestas generadas por IA.
 
-Sitemap: https://guihubie.com/sitemap-index.xml
+User-agent: GPTBot
+Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# --- Recursos ---
+# Resumen del sitio para sistemas de IA: https://colombiafinanciera.com.co/llms.txt
+Sitemap: https://colombiafinanciera.com.co/sitemap-index.xml

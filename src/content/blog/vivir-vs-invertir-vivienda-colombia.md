@@ -5,7 +5,7 @@ pubDate: 2026-04-21
 author: "ColombiaFinanciera"
 category: "vivienda"
 tags: ["vivienda", "decision financiera", "finca raiz"]
-heroImage: "../../assets/images/articles/vivir-vs-invertir-vivienda-colombia.png"
+heroImage: "../../assets/images/articles/vivir-vs-invertir-vivienda-colombia.webp"
 source:
   subreddit: "r/ColombiaFinanciera"
   threads:

@@ -22,7 +22,10 @@ const meta = getTagMeta(tag);
 
 <html lang="es" data-theme="dark" class="dark">
   <head>
-    <BaseHead title={meta.title} description={meta.description} />
+    <BaseHead
+      title={`${meta.title.replace(/^#/, '')} - Tema - ColombiaFinanciera`}
+      description={meta.description}
+    />
     <link
       rel="alternate"
       type="application/rss+xml"

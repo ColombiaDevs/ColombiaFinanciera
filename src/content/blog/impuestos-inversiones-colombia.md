@@ -5,7 +5,7 @@ pubDate: 2026-04-21
 author: "odrakcir"
 category: "inversion"
 tags: ["impuestos", "inversion", "finanzas personales"]
-heroImage: "../../assets/images/articles/impuestos-inversiones-colombia.png"
+heroImage: "../../assets/images/articles/impuestos-inversiones-colombia.webp"
 source:
   subreddit: "r/ColombiaFinanciera"
   threads:
