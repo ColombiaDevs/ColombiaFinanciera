@@ -10,7 +10,10 @@ function ToolContainer({ title, children }) {
 }
 
 function sanitizeNumeric(value) {
-  const cleaned = value.replace(/[^0-9.]/g, '');
+  // En es-CO la coma es el separador decimal (inputMode="decimal" la permite).
+  // Normalizarla a punto antes de filtrar evita que "10,5" se vuelva "105".
+  const normalized = value.replace(/,/g, '.');
+  const cleaned = normalized.replace(/[^0-9.]/g, '');
   const [head, ...rest] = cleaned.split('.');
   return rest.length === 0 ? head : `${head}.${rest.join('')}`;
 }
@@ -19,7 +22,7 @@ function sanitizeInteger(value) {
   return value.replace(/[^0-9]/g, '');
 }
 
-function ToolField({ id, label, value, onChange, inputMode = 'decimal', allowDecimals = true }) {
+function ToolField({ id, label, value, onChange, inputMode = 'decimal', allowDecimals = true, maxLength, hint }) {
   return (
     <label htmlFor={id} className="space-y-1">
       <span className="text-secondary text-sm md:text-base">{label}</span>
@@ -29,6 +32,7 @@ function ToolField({ id, label, value, onChange, inputMode = 'decimal', allowDec
         inputMode={inputMode}
         autoComplete="off"
         value={value}
+        maxLength={maxLength}
         onChange={(event) =>
           onChange(
             allowDecimals
@@ -38,6 +42,7 @@ function ToolField({ id, label, value, onChange, inputMode = 'decimal', allowDec
         }
         className="border-subtle bg-surface-muted text-primary w-full rounded-lg border px-3 py-2"
       />
+      {hint && <span className="text-muted block text-xs md:text-sm">{hint}</span>}
     </label>
   );
 }
@@ -82,28 +87,54 @@ const FREQUENCIES = [
 ];
 
 /**
- * Simula periodo a periodo con tasa periodica derivada de la EA:
+ * Simula mes a mes con tasa periodica derivada de la EA:
  * tasa_periodica = (1 + EA)^(1/f) - 1.
+ * El interes solo se capitaliza en los meses donde cierra un periodo
+ * (cada 12/f meses para f = 1, 2, 4, 12; proporcional para diaria).
  * Los aportes se suman al cierre de cada mes y rentan desde la
  * siguiente capitalizacion. Devuelve el balance de cada mes.
  */
+const MAX_YEARS = 50;
+const MAX_PERIODS = 100000;
+
 function simulate(initial, monthlyContribution, eaAnnual, freq, years) {
-  const periodicRate = Math.pow(1 + eaAnnual, 1 / freq) - 1;
+  if (
+    !Number.isFinite(initial) ||
+    !Number.isFinite(monthlyContribution) ||
+    !Number.isFinite(eaAnnual)
+  ) {
+    return [];
+  }
+  if (
+    !Number.isFinite(freq) ||
+    freq <= 0 ||
+    !Number.isFinite(years) ||
+    years <= 0 ||
+    years > MAX_YEARS
+  ) {
+    return [];
+  }
   const totalPeriods = freq * years;
+  if (totalPeriods > MAX_PERIODS) return [];
+  const periodicRate = Math.pow(1 + eaAnnual, 1 / freq) - 1;
+  if (!Number.isFinite(periodicRate) || periodicRate < 0) return [];
+  const totalMonths = years * 12;
   const rows = [];
   let balance = initial;
   let contributed = initial;
-  let nextMonth = 1;
+  let completedPeriods = 0;
   const eps = 1e-9;
-  for (let p = 1; p <= totalPeriods; p++) {
-    balance *= 1 + periodicRate;
-    const elapsedYears = p / freq;
-    while (nextMonth / 12 <= elapsedYears + eps) {
-      balance += monthlyContribution;
-      contributed += monthlyContribution;
-      rows.push({ month: nextMonth, balance, contributed });
-      nextMonth += 1;
+  for (let m = 1; m <= totalMonths; m++) {
+    const targetPeriods = Math.min(Math.floor((m * freq) / 12 + eps), totalPeriods);
+    const newPeriods = targetPeriods - completedPeriods;
+    for (let i = 0; i < newPeriods; i++) {
+      balance *= 1 + periodicRate;
+      if (!Number.isFinite(balance)) return rows;
     }
+    completedPeriods = targetPeriods;
+    balance += monthlyContribution;
+    contributed += monthlyContribution;
+    rows.push({ month: m, balance, contributed });
   }
   return rows;
 }
@@ -124,6 +155,7 @@ function niceCeil(value) {
 
 function GrowthChart({ monthly, money, annual }) {
   const [hover, setHover] = useState(null);
+  if (!monthly || monthly.length === 0) return null;
 
   const W = 600;
   const H = 280;
@@ -327,7 +359,9 @@ export default function CompoundInterestCalculator() {
   const initialValue = parseNonNegative(initial);
   const monthlyValue = parseNonNegative(monthly);
   const rateValue = parseNonNegative(rate);
-  const yearsValue = Math.floor(parsePositive(years));
+  const rawYears = Math.floor(parsePositive(years));
+  const yearsValue = Math.min(rawYears, MAX_YEARS);
+  const yearsCapped = rawYears > MAX_YEARS;
   const freqValue = parseInt(frequency, 10) || 12;
   const hasValidInputs = yearsValue > 0 && (initialValue > 0 || monthlyValue > 0);
 
@@ -356,6 +390,7 @@ export default function CompoundInterestCalculator() {
   }, [hasValidInputs, chartAnnual, monthlyRows, yearly]);
 
   const last = yearly[yearly.length - 1];
+  const hasResults = hasValidInputs && yearly.length > 0;
   const finalBalance = last ? last.balance : 0;
   const totalContributed = last ? last.contributed : 0;
   const totalInterest = Math.max(finalBalance - totalContributed, 0);
@@ -403,6 +438,8 @@ export default function CompoundInterestCalculator() {
           onChange={setYears}
           inputMode="numeric"
           allowDecimals={false}
+          maxLength={3}
+          hint={yearsCapped ? `Máximo ${MAX_YEARS} años para mantener el cálculo fluido.` : undefined}
         />
         <ToolSelect
           id="compound-frequency"
@@ -418,11 +455,11 @@ export default function CompoundInterestCalculator() {
         <div>
           <p className="text-secondary text-sm">Valor futuro estimado</p>
           <p className="text-primary text-2xl font-semibold md:text-3xl">
-            {hasValidInputs ? money.format(finalBalance) : 'Ingresa valores validos'}
+            {hasResults ? money.format(finalBalance) : 'Ingresa valores validos'}
           </p>
         </div>
 
-        {hasValidInputs && (
+        {hasResults && (
           <>
             <div
               className="border-subtle flex h-4 w-full overflow-hidden rounded-full border"
@@ -447,7 +484,7 @@ export default function CompoundInterestCalculator() {
         )}
       </div>
 
-      {hasValidInputs && yearly.length > 0 && (
+      {hasResults && (
         <div className="space-y-2">
           <h3 className="text-primary text-lg font-semibold">Crecimiento por año</h3>
           <div

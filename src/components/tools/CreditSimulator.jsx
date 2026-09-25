@@ -10,7 +10,10 @@ function ToolContainer({ title, children }) {
 }
 
 function sanitizeNumeric(value) {
-  const cleaned = value.replace(/[^0-9.]/g, '');
+  // En es-CO la coma es el separador decimal (inputMode="decimal" la permite).
+  // Normalizarla a punto antes de filtrar evita que "10,5" se vuelva "105".
+  const normalized = value.replace(/,/g, '.');
+  const cleaned = normalized.replace(/[^0-9.]/g, '');
   const [head, ...rest] = cleaned.split('.');
   return rest.length === 0 ? head : `${head}.${rest.join('')}`;
 }
