@@ -9,18 +9,33 @@ function ToolContainer({ title, children }) {
   );
 }
 
-function ToolField({ id, label, value, onChange, inputMode = 'decimal' }) {
+function sanitizeNumeric(value) {
+  const cleaned = value.replace(/[^0-9.]/g, '');
+  const [head, ...rest] = cleaned.split('.');
+  return rest.length === 0 ? head : `${head}.${rest.join('')}`;
+}
+
+function sanitizeInteger(value) {
+  return value.replace(/[^0-9]/g, '');
+}
+
+function ToolField({ id, label, value, onChange, inputMode = 'decimal', allowDecimals = true }) {
   return (
     <label htmlFor={id} className="space-y-1">
       <span className="text-secondary text-sm md:text-base">{label}</span>
       <input
         id={id}
-        type="number"
-        min="0"
-        step="any"
+        type="text"
         inputMode={inputMode}
+        autoComplete="off"
         value={value}
-        onChange={onChange}
+        onChange={(event) =>
+          onChange(
+            allowDecimals
+              ? sanitizeNumeric(event.target.value)
+              : sanitizeInteger(event.target.value),
+          )
+        }
         className="border-subtle bg-surface-muted text-primary w-full rounded-lg border px-3 py-2"
       />
     </label>
@@ -73,20 +88,23 @@ export default function CreditSimulator() {
           id="credit-amount"
           label="Monto"
           value={amount}
-          onChange={(event) => setAmount(event.target.value)}
+          onChange={setAmount}
+          inputMode="numeric"
+          allowDecimals={false}
         />
         <ToolField
           id="credit-rate"
           label="Tasa anual (%)"
           value={rate}
-          onChange={(event) => setRate(event.target.value)}
+          onChange={setRate}
         />
         <ToolField
           id="credit-term"
           label="Plazo (meses)"
           value={term}
-          onChange={(event) => setTerm(event.target.value)}
+          onChange={setTerm}
           inputMode="numeric"
+          allowDecimals={false}
         />
       </div>
 
