@@ -1,0 +1,60 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/sections/Header.astro';
+import Footer from '../../components/sections/Footer.astro';
+import CompoundInterestCalculator from '../../components/tools/CompoundInterestCalculator.jsx';
+---
+
+<!doctype html>
+<html lang="es" data-theme="dark" class="dark">
+  <head>
+    <BaseHead
+      title="Calculadora de interes compuesto - ColombiaFinanciera"
+      description="Estima el crecimiento de un ahorro con interes compuesto en Colombia."
+    />
+  </head>
+  <body>
+    <Header />
+    <main class="mx-auto max-w-5xl space-y-8 px-4 py-12 md:py-14">
+      <section class="max-readable card-surface space-y-2 p-5 md:p-6">
+        <h1 class="text-accent text-3xl font-semibold md:text-4xl">
+          Calculadora de interes compuesto
+        </h1>
+        <p class="text-secondary text-sm md:text-base">
+          Herramienta referencial para visualizar crecimiento segun monto inicial, aportes, tasa y plazo.
+        </p>
+      </section>
+
+      <CompoundInterestCalculator client:load />
+
+      <section class="max-readable card-surface space-y-2 border-l-4 border-l-amber-400/70 p-5 md:p-6" style="margin-top:3rem">
+        <h2 class="text-primary text-lg font-semibold md:text-xl">Aviso importante</h2>
+        <p class="text-secondary text-sm md:text-base">
+          Esta calculadora tiene fines exclusivamente educativos y no constituye asesoría,
+          recomendación ni consejo de inversión. Pequeños cambios en la tasa, la frecuencia,
+          el plazo o los aportes pueden alterar considerablemente las cifras.
+        </p>
+        <p class="text-secondary text-sm md:text-base">
+          Los resultados no garantizan rendimientos reales: no incluyen impuestos, comisiones,
+          inflación ni riesgo. Antes de tomar decisiones con tu dinero, investiga por tu cuenta,
+          compara fuentes y, si lo necesitas, consulta con un profesional independiente.
+        </p>
+      </section>
+
+      <section class="max-readable card-surface space-y-2 p-5 md:p-6" style="margin-top:3rem">
+        <p class="text-secondary text-sm md:text-base">
+          Para contrastar escenarios reales, puedes revisar discusiones de la comunidad.
+        </p>
+        <a
+          href="https://reddit.com/r/colombiafinanciera"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="interactive-link text-sm"
+        >
+          Ver discusiones en Reddit
+        </a>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
